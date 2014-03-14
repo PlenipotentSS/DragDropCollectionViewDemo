@@ -1,46 +1,11 @@
-//
-//  ViewController.m
-//  DragDropCollectionViewDemo
-//
-//  Created by Stevenson on 3/13/14.
-//  Copyright (c) 2014 Steven Stevenson. All rights reserved.
-//
+Drag Drop Collection View Demo
+-----------------------------
 
-#import "ViewController.h"
-#import "SSDraggingCell.h"
+A demonstration explaining the feature of drag and drop for a collection view. Here we use a UILongGestureRecognizer to locate points of the collection view and ultimately the cell at that point. It then creates a rasterized image of that cell to represent the dragging aspect of the cell. We then update the data (array) of the collection view prior to inserting and deleting that dragged cell.
 
-@interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-@property (weak, nonatomic) IBOutlet UICollectionView *theCollectionView;
+The main emphasis I explained was in the long gesture recognizer IBAction, displayed below:
 
-///dragged view (over cells)
-@property (nonatomic) UIImageView *draggingView;
-
-///the point we first clicked
-@property (nonatomic) CGPoint dragViewStartLocation;
-
-///the indexpath for the first item
-@property (nonatomic) NSIndexPath *startIndex;
-@property (nonatomic) NSMutableArray *numbers;
-
-@end
-
-@implementation ViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.theCollectionView.dataSource = self;
-    self.theCollectionView.delegate = self;
-    
-    self.numbers = [[NSMutableArray alloc] init];
-    for (int i=0; i< 20; i++) {
-        [self.numbers addObject:@(i)];
-    }
-    
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
+```
 - (IBAction)longPressed:(UILongPressGestureRecognizer*)sender {
     CGPoint loc = [sender locationInView:self.theCollectionView];
     if (sender.state == UIGestureRecognizerStateBegan) {
@@ -106,28 +71,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+```
 
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [self.numbers count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell = [self.theCollectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    UILabel *number = (UILabel*)[cell viewWithTag:1];
-    
-    NSInteger theInt = [(NSNumber*)[self.numbers objectAtIndex:indexPath.row] integerValue];
-    
-    number.text = [NSString stringWithFormat:@"%i",(int)theInt];
-    cell.contentView.backgroundColor = [UIColor darkGrayColor];
-    return cell;
-}
-
-@end
+####Images:
