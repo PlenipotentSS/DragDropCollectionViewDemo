@@ -52,7 +52,7 @@
             
             [cell.contentView setAlpha:0.f];
             [self.view addSubview:self.draggingView];
-            self.draggingView.center = [self.theCollectionView convertPoint:loc toView:self.view];
+            self.draggingView.center = loc;
             self.dragViewStartLocation = self.draggingView.center;
             [self.view bringSubviewToFront:self.draggingView];
             
@@ -76,7 +76,17 @@
             } completion:^(BOOL finished) {
 
                 //update date source
-                [self.numbers exchangeObjectAtIndex:self.startIndex.row withObjectAtIndex:moveToIndexPath.row];
+                NSNumber *thisNumber = [self.numbers objectAtIndex:self.startIndex.row];
+                NSLog(@"%@",self.numbers);
+                [self.numbers removeObjectAtIndex:self.startIndex.row];
+                 
+                if (moveToIndexPath.row < self.startIndex.row) {
+                    [self.numbers insertObject:thisNumber atIndex:moveToIndexPath.row];
+                } else {
+                    [self.numbers insertObject:thisNumber atIndex:moveToIndexPath.row];
+                }
+                
+                NSLog(@"%@",self.numbers);
 
                 //change items
                 __weak typeof(self) weakSelf = self;

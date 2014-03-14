@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E976ABF7-91F2-482A-9490-39EFEA30C8F7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DragDropCollectionViewDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7E5E4FF5-519E-4EAE-B6A1-DA981C59ADFB</key>
+		<string>https://github.com/PlenipotentSS/DragDropCollectionViewDemo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DragDropCollectionViewDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7E5E4FF5-519E-4EAE-B6A1-DA981C59ADFB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/PlenipotentSS/DragDropCollectionViewDemo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7E5E4FF5-519E-4EAE-B6A1-DA981C59ADFB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7E5E4FF5-519E-4EAE-B6A1-DA981C59ADFB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DragDropCollectionViewDemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
