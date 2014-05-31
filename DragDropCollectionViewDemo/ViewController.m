@@ -34,7 +34,7 @@
     self.theCollectionView.delegate = self;
     
     self.numbers = [[NSMutableArray alloc] init];
-    for (int i=0; i< 20; i++) {
+    for (int i=0; i< 40; i++) {
         [self.numbers addObject:@(i)];
     }
     
@@ -43,6 +43,10 @@
 
 - (IBAction)longPressed:(UILongPressGestureRecognizer*)sender {
     CGPoint loc = [sender locationInView:self.theCollectionView];
+    
+    CGFloat heightInScreen = fmodf((loc.y-self.theCollectionView.contentOffset.y), CGRectGetHeight(self.theCollectionView.frame));
+    CGPoint locInScreen = CGPointMake( loc.x-self.theCollectionView.contentOffset.x, heightInScreen );
+    
     if (sender.state == UIGestureRecognizerStateBegan) {
         self.startIndex = [self.theCollectionView indexPathForItemAtPoint:loc];
         
@@ -52,7 +56,7 @@
             
             [cell.contentView setAlpha:0.f];
             [self.view addSubview:self.draggingView];
-            self.draggingView.center = loc;
+            self.draggingView.center = locInScreen;
             self.dragViewStartLocation = self.draggingView.center;
             [self.view bringSubviewToFront:self.draggingView];
             
@@ -64,7 +68,7 @@
     }
     
     if (sender.state == UIGestureRecognizerStateChanged) {
-        self.draggingView.center = loc;
+        self.draggingView.center = locInScreen;
     }
     
     if (sender.state == UIGestureRecognizerStateEnded) {
@@ -94,11 +98,18 @@
                         [strongSelf.theCollectionView deleteItemsAtIndexPaths:@[ self.startIndex ]];
                         [strongSelf.theCollectionView insertItemsAtIndexPaths:@[ moveToIndexPath ]];
                     }
-                } completion:nil];
-
+                } completion:^(BOOL finished) {
+                    SSDraggingCell *movedCell = (SSDraggingCell*)[self.theCollectionView cellForItemAtIndexPath:moveToIndexPath];
+                    [movedCell.contentView setAlpha:1.f];
+                    
+                    SSDraggingCell *oldIndexCell = (SSDraggingCell*)[self.theCollectionView cellForItemAtIndexPath:self.startIndex];
+                    [oldIndexCell.contentView setAlpha:1.f];
+                }];
+                
                 [self.draggingView removeFromSuperview];
                 self.draggingView = nil;
                 self.startIndex = nil;
+                
             }];
             
             loc = CGPointZero;
@@ -127,6 +138,7 @@
     
     number.text = [NSString stringWithFormat:@"%i",(int)theInt];
     cell.contentView.backgroundColor = [UIColor darkGrayColor];
+    [cell.contentView setAlpha:1.f];
     return cell;
 }
 
