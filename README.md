@@ -74,3 +74,8 @@ The main emphasis I explained was in the long gesture recognizer IBAction, displ
 ```
 
 ####Images:
+
+|                       |                       |
+|  -------------------  |  ------------------- |
+| ![](screenshot1.png)  | ![](screenshot2.png)  |
+|                       |                       |
