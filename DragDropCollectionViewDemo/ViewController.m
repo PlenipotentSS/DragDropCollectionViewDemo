@@ -20,6 +20,7 @@
 
 ///the indexpath for the first item
 @property (nonatomic) NSIndexPath *startIndex;
+@property (nonatomic) NSIndexPath *moveToIndexPath;
 @property (nonatomic) NSMutableArray *numbers;
 
 @end
@@ -73,25 +74,24 @@
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         if (self.draggingView) {
-            NSIndexPath *moveToIndexPath = [self.theCollectionView indexPathForItemAtPoint:loc];
-
-            if (moveToIndexPath) {
+            self.moveToIndexPath = [self.theCollectionView indexPathForItemAtPoint:loc];
+            if (self.moveToIndexPath) {
                 //update date source
                 NSNumber *thisNumber = [self.numbers objectAtIndex:self.startIndex.row];
                 [self.numbers removeObjectAtIndex:self.startIndex.row];
                 
-                if (moveToIndexPath.row < self.startIndex.row) {
-                    [self.numbers insertObject:thisNumber atIndex:moveToIndexPath.row];
+                if (self.moveToIndexPath.row < self.startIndex.row) {
+                    [self.numbers insertObject:thisNumber atIndex:self.moveToIndexPath.row];
                 } else {
-                    [self.numbers insertObject:thisNumber atIndex:moveToIndexPath.row];
+                    [self.numbers insertObject:thisNumber atIndex:self.moveToIndexPath.row];
                 }
                 
                 [UIView animateWithDuration:.4f animations:^{
                     self.draggingView.transform = CGAffineTransformIdentity;
                 } completion:^(BOOL finished) {
-
-
-
+                    
+                    
+                    
                     //change items
                     __weak typeof(self) weakSelf = self;
                     [self.theCollectionView performBatchUpdates:^{
@@ -99,10 +99,10 @@
                         if (strongSelf) {
                             
                             [strongSelf.theCollectionView deleteItemsAtIndexPaths:@[ self.startIndex ]];
-                            [strongSelf.theCollectionView insertItemsAtIndexPaths:@[ moveToIndexPath ]];
+                            [strongSelf.theCollectionView insertItemsAtIndexPaths:@[ strongSelf.moveToIndexPath ]];
                         }
                     } completion:^(BOOL finished) {
-                        SSDraggingCell *movedCell = (SSDraggingCell*)[self.theCollectionView cellForItemAtIndexPath:moveToIndexPath];
+                        SSDraggingCell *movedCell = (SSDraggingCell*)[self.theCollectionView cellForItemAtIndexPath:self.moveToIndexPath];
                         [movedCell.contentView setAlpha:1.f];
                         
                         SSDraggingCell *oldIndexCell = (SSDraggingCell*)[self.theCollectionView cellForItemAtIndexPath:self.startIndex];
